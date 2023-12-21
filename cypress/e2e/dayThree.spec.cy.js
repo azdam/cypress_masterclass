@@ -1,13 +1,17 @@
+let webpage
 describe('Test Mima SignUp Journey', () => {
-
-  it.only('Click SignUp', () => {
-
-    cy.ClickAnElement('[class="sc-imWYAI dLIPIJ"]')
-    cy.FillSignUpDetails()
+  before(() => {
+    cy.fixture('elements').then((elements) => {
+      webpage = elements
+    })
+    cy.visit('/')
   })
 
-  it('Click Login', () => {
-
-    cy.ClickAnElement('[class="sc-imWYAI hgdAmX"]')
+  it('Click SignUp Button', () => {
+    cy.ClickAnElement(webpage.SignUpButton)
+    cy.FillSignUpDetails()
+    cy.wait(500).ClickAnElement(webpage.NextButton)
+    cy.FillSignUpDetailsNext()
+    cy.ClickAnElement(webpage.SignUp)
   })
 })
